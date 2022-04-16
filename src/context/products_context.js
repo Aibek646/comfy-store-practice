@@ -12,6 +12,7 @@ import {
     GET_SINGLE_PRODUCT_SUCCESS,
     GET_SINGLE_PRODUCT_ERROR
 } from "../actions";
+import { SingleProduct } from "../pages";
 
 const initialState = {
     isSidebarOpen: false,
@@ -49,13 +50,29 @@ export const ProductsProvider = ({ children }) => {
         }
     };
 
+    const fetchSingleProduct = async (url) => {
+        dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
+        try {
+            const response = await axios.get(url);
+            const singleProduct = response.data;
+            console.log(singleProduct);
+
+            dispatch({
+                type: GET_SINGLE_PRODUCT_SUCCESS,
+                payload: singleProduct
+            });
+        } catch (error) {
+            dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
+        }
+    };
+
     useEffect(() => {
         fetchProducts(url);
     }, []);
 
     return (
         <ProductsContext.Provider
-            value={{ ...state, openSidebar, closeSidebar }}
+            value={{ ...state, openSidebar, closeSidebar, fetchSingleProduct }}
         >
             {children}
         </ProductsContext.Provider>
