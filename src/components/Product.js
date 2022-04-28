@@ -2,16 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import { formatPrice } from "../utils/helpers";
 import { FaBars, FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-const Product = ({ image, name, price, id }) => {
+const Product = ({ image, name, price, id }, featured_link) => {
     return (
         <Wrapper>
             <div className="container">
                 <img src={image} alt={name} />
-                <Link to={`products/${id}`} className="link">
-                    <FaSearch />
-                </Link>
+                {featured_link ? (
+                    <NavLink to={`products/${id}`} className="link">
+                        <FaSearch />
+                    </NavLink>
+                ) : (
+                    <NavLink to={`products/${id}`} className="link">
+                        <FaSearch />
+                    </NavLink>
+                )}
             </div>
             <footer>
                 <h5>{name}</h5>

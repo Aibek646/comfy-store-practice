@@ -6,7 +6,9 @@ import {
     GET_PRODUCTS_ERROR,
     GET_SINGLE_PRODUCT_BEGIN,
     GET_SINGLE_PRODUCT_SUCCESS,
-    GET_SINGLE_PRODUCT_ERROR
+    GET_SINGLE_PRODUCT_ERROR,
+    FEATURED_OPEN,
+    FEATURED_CLOSE
 } from "../actions";
 
 const products_reducer = (state, action) => {
@@ -15,6 +17,14 @@ const products_reducer = (state, action) => {
     }
     if (action.type === SIDEBAR_CLOSE) {
         return { ...state, isSidebarOpen: false };
+    }
+
+    if (action.type === FEATURED_OPEN) {
+        return { ...state, featured_link: true };
+    }
+
+    if (action.type === FEATURED_CLOSE) {
+        return { ...state, featured_link: false };
     }
 
     if (action.type === GET_PRODUCTS_BEGIN) {

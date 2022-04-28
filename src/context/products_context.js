@@ -10,7 +10,9 @@ import {
     GET_PRODUCTS_ERROR,
     GET_SINGLE_PRODUCT_BEGIN,
     GET_SINGLE_PRODUCT_SUCCESS,
-    GET_SINGLE_PRODUCT_ERROR
+    GET_SINGLE_PRODUCT_ERROR,
+    FEATURED_OPEN,
+    FEATURED_CLOSE
 } from "../actions";
 import { SingleProduct } from "../pages";
 
@@ -22,13 +24,22 @@ const initialState = {
     featured_products: [],
     single_product_loading: false,
     single_product_error: false,
-    single_product: []
+    single_product: [],
+    featured_link: false
 };
 
 const ProductsContext = React.createContext();
 
 export const ProductsProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    const featured_link_open = () => {
+        dispatch({ type: FEATURED_OPEN });
+    };
+
+    const featured_link_close = () => {
+        dispatch({ type: FEATURED_CLOSE });
+    };
 
     const openSidebar = () => {
         dispatch({ type: SIDEBAR_OPEN });
@@ -43,7 +54,7 @@ export const ProductsProvider = ({ children }) => {
         try {
             const response = await axios.get(url);
             const products = response.data;
-            console.log(products);
+
             dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
         } catch {
             dispatch({ type: GET_PRODUCTS_ERROR });
@@ -72,7 +83,14 @@ export const ProductsProvider = ({ children }) => {
 
     return (
         <ProductsContext.Provider
-            value={{ ...state, openSidebar, closeSidebar, fetchSingleProduct }}
+            value={{
+                ...state,
+                openSidebar,
+                closeSidebar,
+                fetchSingleProduct,
+                featured_link_open,
+                featured_link_close
+            }}
         >
             {children}
         </ProductsContext.Provider>

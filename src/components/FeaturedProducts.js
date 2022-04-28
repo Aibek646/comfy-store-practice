@@ -10,7 +10,9 @@ const FeaturedProducts = () => {
     const {
         products_loading: loading,
         products_error: error,
-        featured_products: featured
+        featured_products: featured,
+        featured_link,
+        featured_link_open
     } = useProductsContext();
 
     if (loading) {
@@ -26,9 +28,18 @@ const FeaturedProducts = () => {
                 <h2>featured products</h2>
                 <div className="underline"></div>
             </div>
-            <div className="section-center featured">
+            <div
+                onClick={featured_link_open}
+                className="section-center featured"
+            >
                 {featured.slice(0, 3).map((product) => {
-                    return <Product key={product.id} {...product} />;
+                    return (
+                        <Product
+                            featured_link={featured_link}
+                            key={product.id}
+                            {...product}
+                        />
+                    );
                 })}
             </div>
         </Wrapper>

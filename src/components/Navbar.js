@@ -9,7 +9,7 @@ import { useProductsContext } from "../context/products_context";
 import { useUserContext } from "../context/user_context";
 
 const Nav = () => {
-    const { openSidebar } = useProductsContext();
+    const { openSidebar, featured_link_close } = useProductsContext();
     return (
         <NavContainer>
             <div className="nav-center">
@@ -30,7 +30,7 @@ const Nav = () => {
                     {links.map((link) => {
                         const { id, text, url } = link;
                         return (
-                            <li key={id}>
+                            <li onClick={featured_link_close} key={id}>
                                 <Link to={url}>{text}</Link>
                             </li>
                         );
