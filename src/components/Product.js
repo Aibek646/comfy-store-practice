@@ -9,7 +9,8 @@ const Product = ({ image, name, price, id }, featured_link) => {
         <Wrapper>
             <div className="container">
                 <img src={image} alt={name} />
-                {featured_link ? (
+
+                {/* {featured_link ? (
                     <NavLink to={`products/${id}`} className="link">
                         <FaSearch />
                     </NavLink>
@@ -17,7 +18,11 @@ const Product = ({ image, name, price, id }, featured_link) => {
                     <NavLink to={`products/${id}`} className="link">
                         <FaSearch />
                     </NavLink>
-                )}
+                )} */}
+                <a className="link" href={`products/${id}`}>
+                    {" "}
+                    <FaSearch />
+                </a>
             </div>
             <footer>
                 <h5>{name}</h5>
